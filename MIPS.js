@@ -24,9 +24,81 @@ var MIPS = (function(){ 'use strict';
 
 	var object = {
 
+		add: function add(d, s, t) {
+			return verifyArgs.apply(null, arguments)
+				? '0x' + fill(parseInt('000000' + fill(s.toString(2), 5) + fill(t.toString(2), 5) + fill(d.toString(2), 5) + '00000100000', 2).toString(16), 8)
+				: false;
+		},
+
+		sub: function sub(d, s, t) {
+			return verifyArgs.apply(null, arguments)
+				? '0x' + fill(parseInt('000000' + fill(s.toString(2), 5) + fill(t.toString(2), 5) + fill(d.toString(2), 5) + '00000100010', 2).toString(16), 8)
+				: false;
+		},
+
+		mult: function mult(s, t) {
+			return verifyArgs.apply(null, arguments)
+				? '0x' + fill(parseInt('000000' + fill(s.toString(2), 5) + fill(t.toString(2), 5) + '0000000000011000', 2).toString(16), 8)
+				: false;
+		},
+
+		multu: function multu(s, t) {
+			return verifyArgs.apply(null, arguments)
+				? '0x' + fill(parseInt('000000' + fill(s.toString(2), 5) + fill(t.toString(2), 5) + '0000000000011001', 2).toString(16), 8)
+				: false;
+		},
+
+		div : function div(s, t) {
+			return verifyArgs.apply(null, arguments)
+				? '0x' + fill(parseInt('000000' + fill(s.toString(2), 5) + fill(t.toString(2), 5) + '0000000000011010', 2).toString(16), 8)
+				: false;
+		},
+
+		divu : function divu(s, t) {
+			return verifyArgs.apply(null, arguments)
+				? '0x' + fill(parseInt('000000' + fill(s.toString(2), 5) + fill(t.toString(2), 5) + '0000000000011011', 2).toString(16), 8)
+				: false;
+		},
+
+		mfhi : function mfhi(d) {
+			return verifyArgs.apply(null, arguments)
+				? '0x' + fill(parseInt('0000000000000000' + fill(d.toString(2),5) + '00000010000', 2).toString(16), 8)
+				: false;
+		}, 
+
+		mfho : function mfho(d) {
+			return verifyArgs.apply(null, arguments)
+				? '0x' + fill(parseInt('0000000000000000' + fill(d.toString(2),5) + '00000010010', 2).toString(16), 8)
+				: false;
+		},
+
+		lis : function lis(d) {
+			return verifyArgs.apply(null, arguments)
+				? '0x' + fill(parseInt('0000000000000000' + fill(d.toString(2), 5) + '00000010100', 2).toString(16), 8)
+				: false;
+		},
+		
+		lw : function lw(t, i, s) {
+			return verifyArgs.apply(null, arguments)
+				? '0x' + fill(parseInt('100011' + fill(s.toString(2), 5) + fill(t.toString(2), 5)  + fill(i.toString(2), 16), 2).toString(16), 8)
+				: false;
+		},
+		
+		sw : function sw(t, i, s) {
+			return verifyArgs.apply(null, arguments)
+				? '0x' + fill(parseInt('101011' + fill(s.toString(2), 5) + fill(t.toString(2), 5)  + fill(i.toString(2), 16), 2).toString(16), 8)
+				: false;
+		},
+
 		slt: function slt(d, s, t) {
 			return verifyArgs.apply(null, arguments) 
 				? '0x' + fill(parseInt('000000' + fill(s.toString(2), 5) + fill(t.toString(2), 5) + fill(d.toString(2), 5) + '00000101010', 2).toString(16), 8)
+				: false;
+		},
+
+		sltu: function sltu(d, s, t) {
+			return verifyArgs.apply(null, arguments) 
+				? '0x' + fill(parseInt('000000' + fill(s.toString(2), 5) + fill(t.toString(2), 5) + fill(d.toString(2), 5) + '00000101011', 2).toString(16), 8)
 				: false;
 		},
 
@@ -36,9 +108,9 @@ var MIPS = (function(){ 'use strict';
 				: false;
 		},
 
-		add: function add(d, s, t) {
+		bne: function bne(s, t, i) {
 			return verifyArgs.apply(null, arguments)
-				? '0x' + fill(parseInt('000000' + fill(s.toString(2), 5) + fill(t.toString(2), 5) + fill(d.toString(2), 5) + '00000100000', 2).toString(16), 8)
+				? '0x' + fill(parseInt('000101' + fill(s.toString(2), 5) + fill(t.toString(2), 5) + fill(i.toString(2), 16), 2).toString(16), 8)
 				: false;
 		},
 
@@ -47,24 +119,13 @@ var MIPS = (function(){ 'use strict';
 				? '0x' + fill(parseInt('000000' + fill(s.toString(2), 5) + '000000000000000001000', 2).toString(16), 8)
 				: false;
 		},
-		
-		sw : function sw(t, i, s) {
-			return verifyArgs.apply(null, arguments)
-				? '0x' + fill(parseInt('101011' + fill(s.toString(2), 5) + fill(t.toString(2), 5)  + fill(i.toString(2), 16), 2).toString(16), 8)
-				: false;
-		},
-		
-		lw : function lw(t, i, s) {
-			return verifyArgs.apply(null, arguments)
-				? '0x' + fill(parseInt('100011' + fill(s.toString(2), 5) + fill(t.toString(2), 5)  + fill(i.toString(2), 16), 2).toString(16), 8)
-				: false;
-		},
 
-		lis : function lis(d) {
+		jalr : function jalr(s) {
 			return verifyArgs.apply(null, arguments)
-				? '0x' + fill(parseInt('0000000000000000' + fill(d.toString(2), 5) + '00000010100', 2).toString(16), 8)
+				? '0x' + fill(parseInt('000000' + fill(s.toString(2), 5) + '000000000000000001001', 2).toString(16), 8)
 				: false;
 		}
+
 	};
 
 	return object;
