@@ -131,3 +131,6 @@ var MIPS = (function(){ 'use strict';
 	return object;
 
 }());
+
+// node.js compatibility 
+typeof module !== 'undefined' ? module.exports = MIPS : null;
